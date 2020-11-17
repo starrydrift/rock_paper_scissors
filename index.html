@@ -7,10 +7,38 @@
     <title>Document</title>
 </head>
 <body>
+    <div class ="container">
+        <div class="won">
+            <div id = "picked"></div>
+            <div id = "result"></div>
+            <div id = "winner"></div>
+        </div>
+        <div class="button-container">
+            <button id ="rock">Rock</button>
+            <button id ="paper">Paper</button>
+            <button id ="scissors">Scissors</button>
+        </div>   
+    <div class="score">
+        <div id = "playerScore">Player:<span id = "pScore">0</span></div>
+        <div id = "computerScore">Computer:<span id = "cScore">0</span></div>
+        <div id = "ties">Ties:<span id = "tScore">0</span></div>
+       
+    </div>
+    </div>
     <script>
         var computerScore = 0;
         var playerScore = 0;
         var tieScore = 0;
+        var round = 0;
+
+        var picked = document.getElementById('picked');
+        var cScore = document.getElementById('cScore');
+        var pScore = document.getElementById('pScore');
+        var tScore = document.getElementById('tScore');
+        var result = document.getElementById('result');
+        var winner = document.getElementById('winner');
+        
+       const buttons = document.querySelectorAll('button');
         
         function computerPlay() {
             var choices = ["rock","paper","scissors"];
@@ -24,63 +52,118 @@
              computerSelection = computerPlay()
             if (playerSelection === "rock" && computerSelection === "paper") {
                 console.log("The player picked " + playerSelection + " & " + "The computer picked " + computerSelection);
+                picked.textContent = "The player picked " + playerSelection + " & " + "The computer picked " + computerSelection;
+                result.textContent = "You lose! Paper beats rock!"
                 computerScore++;
+                cScore.textContent= computerScore;
+                round++
                 return "You lose! Paper beats rock!";
                 
             }else if(playerSelection === "paper" && computerSelection === "rock"){
                 console.log("The player picked " + playerSelection + " & " + "The computer picked " + computerSelection);
-                playerScore++;
+                picked.textContent = "The player picked " + playerSelection + " & " + "The computer picked " + computerSelection;
+                result.textContent = "You win! Paper beats rock!";
+                playerScore++
+                pScore.textContent = playerScore;
+                round++
                 return "You win! Paper beats rock!";
                 
             }else if(playerSelection === "paper" && computerSelection === "scissors"){
                 console.log("The player picked " + playerSelection + " & " + "The computer picked " + computerSelection);
+                picked.textContent = "The player picked " + playerSelection + " & " + "The computer picked " + computerSelection;
+                result.textContent = "You lose! Scissors beats paper!";
                 computerScore++;
+                cScore.textContent= computerScore;
+                round++
                 return "You lose! Scissors beats paper!";
                 
             }else if(playerSelection === "scissors" && computerSelection === "paper"){
                 console.log("The player picked " + playerSelection + " & " + "The computer picked " + computerSelection);
-                playerScore++;
+                picked.textContent = "The player picked " + playerSelection + " & " + "The computer picked " + computerSelection;
+                result.textContent = "You win! Scissors beats paper!";
+                playerScore++
+                pScore.textContent = playerScore;
+                round++
                 return "You win! Scissors beats paper!";    
                
             }else if(playerSelection === "scissors" && computerSelection === "rock"){
                 console.log("The player picked " + playerSelection + " & " + "The computer picked " + computerSelection);
+                picked.textContent = "The player picked " + playerSelection + " & " + "The computer picked " + computerSelection;
+                result.textContent = "You lose! Rock beats scissors!";
                 computerScore++;
+                cScore.textContent= computerScore;
+                round++
                 return "You lose! Rock beats scissors!";  
                 
             }else if(playerSelection === "rock" && computerSelection === "scissors"){
                 console.log("The player picked " + playerSelection + " & " + "The computer picked " + computerSelection);
-                playerScore++;
+                picked.textContent = "The player picked " + playerSelection + " & " + "The computer picked " + computerSelection;
+                result.textContent = "You win! Rock beats scissors!";
+                playerScore++
+                pScore.textContent = playerScore;
+                round++
                 return "You win! Rock beats scissors!";
 
             }else (playerSelection === computerSelection)
                 console.log("The player picked " + playerSelection + " & " + "The computer picked " + computerSelection);
-                tieScore++;
+                picked.textContent = "The player picked " + playerSelection + " & " + "The computer picked " + computerSelection;
+                result.textContent = "It's a tie!";
+                tieScore++
+                tScore.textContent =  tieScore;
+                round++
                 return "It's a tie!";
                           
         }
-       function winner(){
-           if (playerScore > computerScore ){
-               console.log("You won!")
-           }else if(computerScore > playerScore){
-               console.log("You lost")
-           }else 
-               console.log("It's a tie")
+        function outcome(playerScore, computerScore){
+             if ( playerScore > computerScore){
+                 console.log("Congrats! You won the game!");
+                 winner.textContent = "Congrats! You won the game!";
+                 return "Congrats! You won the game!";
+             }else if(computerScore > playerScore){
+                 console.log("You lost, too bad");
+                 winner.textContent = "You lost, too bad";
+                 return "You lost, too bad";
+             }else (playerScore === computerScore)
+                 console.log("It's a draw");
+                 winner.textContent = "It's a draw";
+                 return "It's a draw";
+         }
+        
+          function reset(){
+             computerScore = 0;
+             playerScore = 0;
+             tieScore = 0;
+             round = 0;
+             cScore.textContent = computerScore;
+             pScore.textContent = playerScore;
+             tScore.textContent = tieScore;
+             picked.textContent = "";
+             result.textContent = "";
+         }
+        
+         function game(){
+            buttons.forEach((button) => {
+         button.addEventListener('click', (e) => {
+            if (round < 5){
+              let playerSelection = button.id;
+              let computerSelection = computerPlay();
+              playRound(playerSelection, computerSelection);
+              winner.textContent = "";
+            }else {
+                (round === 5)
+                outcome(playerScore, computerScore);
+                reset();
+            }
+               
            
-       }
-        function game(){
-           for (var i = 0; i < 5; i++) {
-              console.log("*****************");
-              console.log(playRound(playerSelection, computerSelection));
-              console.log("Computer has " + computerScore + " points.");
-              console.log("Player has " + playerScore + " points.");
-              console.log("The number of ties is " + tieScore);
-           }    
-           winner()
+         });
+         
+        });
+      
+            
         }
-        const playerSelection = "rock";
-        const computerSelection = computerPlay()
-        game()    
-          
+
+        game();
     </script>
 </body>
 </html>
