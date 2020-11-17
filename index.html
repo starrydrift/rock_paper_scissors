@@ -48,8 +48,6 @@
         }
 
         function playRound(playerSelection, computerSelection) {
-             playerSelection = prompt("Rock, paper, or scissors?");
-             playerSelection = playerSelection.toLowerCase();
              computerSelection = computerPlay()
             if (playerSelection === "rock" && computerSelection === "paper") {
                 console.log("The player picked " + playerSelection + " & " + "The computer picked " + computerSelection);
