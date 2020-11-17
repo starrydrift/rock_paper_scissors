@@ -1,0 +1,32 @@
+   body, html {
+    height: 100%;
+    display: grid;
+}   
+
+.container {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+button {
+    margin-top: 10px;
+    margin-right: 10px;
+    
+}
+button:last-child{
+    margin-right: 0px;
+}
+
+.score {
+    margin-top: 10px;
+    
+}
+
+.won {
+    
+    margin-bottom: 5px;
+}  
+
